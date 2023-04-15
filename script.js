@@ -7,7 +7,7 @@ $("#currentDay").text(today.format("dddd, MMMM D"));
 
 for (var hour = 9; hour <= 17; hour++) {
     
-    var $row = $("<div").addClass("row time-block");
+    var $row = $("<div>").addClass("row time-block");
     
     var $hourCol = $("<div>")
     .addClass("col-2 col-md-1 hour text-center py-3")
@@ -53,7 +53,7 @@ for (var hour = 9; hour <= 17; hour++) {
       });
 
       function updateTimeBlocks() {
-        var currentHour = moment().hours();
+        var currentHour = dayjs().hour();
       
     $(".time-block").each(function () {
         var blockHour = parseInt($(this).attr("id").split("-")[1]);

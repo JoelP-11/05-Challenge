@@ -1,9 +1,33 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+
 var today = dayjs();
 $("#currentDay").text(today.format("dddd, MMMM D"));
-$(function () {
+
+for (var hour = 9; hour <= 17; hour++) {
+    
+    var $row = $("<div").addClass("row time-block");
+    
+    var $hourCol = $("<div>")
+    .addClass("col-2 col-md-1 hour text-center py-3")
+    .text(dayjs().hour(hour).format("hA"));
+
+    var $textCol = $("<textarea>")
+    .addClass("col-8 col-md-10 description")
+    .val(localStorage.getItem("hour-" + hour));
+
+    var $saveBtnCol = $("<button>")
+    .addClass("btn saveBtn col-2 col-md-1")
+    .attr("aria-label", "save")
+    .html('<i class="fas fa-save" aria-hidden="true"></i>');
+
+    $row.append($hourCol, $textCol, $saveBtnCol);
+
+    $(".container-fluid").append($row);
+}
+
+
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
@@ -22,4 +46,26 @@ $(function () {
     // attribute of each time-block be used to do this?
     //
     // TODO: Add code to display the current date in the header of the page.
+    $(".saveBtn").on("click", function () {
+        var hour = $(this).closest(".time-block").attr("id");
+        var text = $(this).siblings(".description").val();
+        localStorage.setItem(hour, text);
+      });
+    
+    $(".time-block").each(function () {
+        var hour = parseInt($(this).attr("id").split("-")[1]);
+        if (dayjs().hour(hour).isBefore(dayjs(), "hour")) {
+            $(this).addClass("past");
+        } else if (dayjs().hour(hour).isSame(dayjs(), "hour")) {
+            $(this).addClass("present");
+        } else {
+            $(this).addClass("future");
+        }
+
+        var savedInput = localStorage.getItem("hour-" + hour);
+        if (savedInput != null) {
+            $(this).find(".description").val(savedInput);
+        }
   });
+
+  

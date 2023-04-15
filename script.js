@@ -51,21 +51,25 @@ for (var hour = 9; hour <= 17; hour++) {
         var text = $(this).siblings(".description").val();
         localStorage.setItem(hour, text);
       });
-    
+
+      function updateTimeBlocks() {
+        var currentHour = moment().hours();
+      
     $(".time-block").each(function () {
-        var hour = parseInt($(this).attr("id").split("-")[1]);
-        if (dayjs().hour(hour).isBefore(dayjs(), "hour")) {
-            $(this).addClass("past");
-        } else if (dayjs().hour(hour).isSame(dayjs(), "hour")) {
-            $(this).addClass("present");
+        var blockHour = parseInt($(this).attr("id").split("-")[1]);
+
+        if (blockHour < currentHour) {
+            $(this).removeClass("future present").addClass("past");
+        } else if (hour === currentHour) {
+            $(this).removeClass("past future"). addClass("present");
         } else {
-            $(this).addClass("future");
+            $(this).removeClass("past present"). addClass("future");
         }
-
-        var savedInput = localStorage.getItem("hour-" + hour);
-        if (savedInput != null) {
-            $(this).find(".description").val(savedInput);
-        }
-  });
-
+    });
+}
   
+      $(document).ready(function() {
+        updateTimeBlocks();
+
+        setInterval(updateTimeBlocks, 60000);
+      });

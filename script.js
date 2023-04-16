@@ -60,7 +60,7 @@ for (var hour = 9; hour <= 17; hour++) {
 
         if (blockHour < currentHour) {
             $(this).removeClass("future present").addClass("past");
-        } else if (hour === currentHour) {
+        } else if (blockHour === currentHour) {
             $(this).removeClass("past future"). addClass("present");
         } else {
             $(this).removeClass("past present"). addClass("future");

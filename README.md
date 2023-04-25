@@ -1,4 +1,4 @@
-# 05-Challenge
+# Work-Day-Planner
 With this application I've developed a work day schedule. The hours range from 9 am to 5 pm which is the usual work day for most people, It allows oyu to input data and if you click the save button to the right then even if you reload the page, the content will stay in the text boxes. These text boxes are also color coordinated, so if the hour has already past then the box will be gray, if the hour is the current one then it will be red, and if the hour is in the future then it will be green. At the top of the application you will also see how the current date is displayed in a format similar to (Sunday, April 16th). Below I have provided the link to the Github repo and deployed application.
 gitHub repo - https://github.com/JoelP-11/05-Challenge
 deployed application - https://joelp-11.github.io/05-Challenge/
